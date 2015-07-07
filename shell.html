@@ -1,0 +1,41 @@
+<div id="shell-header" class="global-header">
+    <div class="branding"><img src="{{branding}}"></div>
+</div>
+<div id="shell-navigation" class="navigation-menu">
+    <ul>
+        <li ng-repeat="menu in navigation">
+            <ng-switch on="{{menu.type}}">
+                <div ng-switch-when="true" ng-click="shellCmd.toggle(menu.id)" ng-class="shellCmd.status(menu.id)" class="item closed">
+                    <i class="fa fa-{{menu.icon}} fa-2x fa-fw"></i>
+                    <span>{{menu.title}}</span>
+                </div>
+                <ul ng-switch-when="true">
+                    <li ng-repeat="submenu in menu.submenu" ng-click="shellCmd.navigate(submenu.state)">
+                        <span>{{submenu.title}}</span>
+                    </li>
+                </ul>
+                <div ng-switch-default ng-click="shellCmd.navigate(menu.state)" class="item">
+                    <i class="fa fa-{{menu.icon}} fa-2x fa-fw"></i>
+                    <span>{{menu.title}}</span>
+                </div>
+            </ng-switch>
+        </li>
+        <li>
+            <div ng-click="login()" class="item">
+                <i class="fa fa-{{menu.icon}} fa-2x fa-fw"></i>
+                <span>LOGIN</span>
+            </div>
+        </li>
+        <li class="user">
+            <div class="item closed">
+                <span><small>{{lang['hello']}},</small> {{userName}}</span>
+                <img class="user-photo" src="{{userPicture}}">
+            </div>
+        </li>
+    </ul>
+    <pre>
+        {{$state.current.name}}
+        {{userInfo.profile.given_name}} {{userInfo.profile.family_name}}
+    </pre>
+</div>
+<ui-view id="shell-content" ng-click="shellCmd.reset()"></ui-view>
