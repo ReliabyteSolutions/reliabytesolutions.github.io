@@ -34175,7 +34175,8 @@ if (typeof module !== 'undefined' && module.exports) {
 
     angular.module('app',[
         'templates',
-        'app.shell'
+        'app.shell',
+        'app.default'
     ]).run(runBlock);
 
     runBlock.$inject = [
@@ -34194,6 +34195,14 @@ if (typeof module !== 'undefined' && module.exports) {
 
     angular.module('app.shell',[
         'AdalAngular',
+        'ui.router'
+    ]);
+})();
+(function() {
+    'use strict';
+
+    angular.module('app.default',[
+        'templates',
         'ui.router'
     ]);
 })();
@@ -34221,7 +34230,7 @@ if (typeof module !== 'undefined' && module.exports) {
     ) {
         $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/home');
 
         adalAuthenticationServiceProvider.init({
             tenant: 'peoriaholyfamily.com',
@@ -34230,11 +34239,25 @@ if (typeof module !== 'undefined' && module.exports) {
 
         $stateProvider.state({
             name: 'shell',
-            url: '/',
+            url: '',
+            abstract: true,
             templateUrl: 'shell/shell.html',
             controller: 'Shell'
         })
     }
+})();
+(function() {
+    'use strict';
+
+    angular.module('app.default')
+        .config(['$stateProvider', function($stateProvider) {
+
+            $stateProvider.state('shell.home', {
+                url: '/home',
+                templateUrl: 'pages/default/default.html'
+            });
+
+        }])
 })();
 (function() {
     'use strict';
@@ -34348,3 +34371,6 @@ if (typeof module !== 'undefined' && module.exports) {
         ];
     }
 })();
+/**
+ * Created by jbani on 7/7/2015.
+ */
