@@ -34231,7 +34231,7 @@ if (typeof module !== 'undefined' && module.exports) {
         $stateProvider.state({
             name: 'shell',
             url: '/',
-            templateUrl: 'shell.html',
+            templateUrl: 'shell/shell.html',
             controller: 'Shell'
         })
     }
