@@ -34173,15 +34173,8 @@ if (typeof module !== 'undefined' && module.exports) {
 (function() {
     'use strict';
 
-    angular.module('app.shell',[
-        'AdalAngular',
-        'ui.router'
-    ]);
-})();
-(function() {
-    'use strict';
-
     angular.module('app',[
+        'templates',
         'app.shell'
     ]).run(runBlock);
 
@@ -34195,6 +34188,14 @@ if (typeof module !== 'undefined' && module.exports) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
     }
+})();
+(function() {
+    'use strict';
+
+    angular.module('app.shell',[
+        'AdalAngular',
+        'ui.router'
+    ]);
 })();
 
 (function () {
