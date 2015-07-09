@@ -32,9 +32,11 @@
         '$stateParams'
     ];
 
-    function runBlock($rootScope, $state, $stateParams) {
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-            console.log(toState);
+    function runBlock($rootScope, $state) {
+        $rootScope.$on('$stateChangeStart', function() {
+            if ($state.get('shell').loginRequired === true) {
+                console.log($rootScope);
+            }
         });
     }
 })();
