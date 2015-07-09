@@ -24,7 +24,19 @@
     angular.module('app.shell',[
         'AdalAngular',
         'ui.router'
-    ]);
+    ]).run(runBlock);
+
+    runBlock.$inject = [
+        '$rootScope',
+        '$state',
+        '$stateParams'
+    ];
+
+    function runBlock($rootScope, $state, $stateParams) {
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+            console.log(toState);
+        });
+    }
 })();
 (function() {
     'use strict';
