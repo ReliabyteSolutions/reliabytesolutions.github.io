@@ -8,17 +8,21 @@
     <!-- title -->
     <title>Loading...</title>
 
+    <!-- base -->
     <base href="/">
 
     <!-- stylesheets -->
-    <link rel="stylesheet" href="/application.css">
-    <link rel="stylesheet" href="/application2.css">
+    <link rel="stylesheet" href="styles/vendor.css">
+    <link rel="stylesheet" href="styles/application.css">
+
+    <!-- scripts -->
+    <script src="scripts/vendor.js"></script>
+    <script src="scripts/templates.js"></script>
 </head>
 <body ng-app="app">
 <ui-view></ui-view>
 
 <!-- scripts -->
-<script src="/application.js"></script>
-<script src="/templates.js"></script>
+<script src="scripts/application.js"></script>
 </body>
 </html>
