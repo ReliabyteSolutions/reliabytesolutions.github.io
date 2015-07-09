@@ -83,7 +83,8 @@
             abstract: true,
             templateUrl: 'shell/shell.html',
             controller: 'ShellCtrl',
-            controllerAs: 'shell'
+            controllerAs: 'shell',
+            loginRequired: true
         })
     }
 })();
