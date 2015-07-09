@@ -95,7 +95,6 @@
 
             $stateProvider.state('shell.home', {
                 url: '/home',
-                requireADLogin: true,
                 templateUrl: 'pages/default/default.html'
             });
 
