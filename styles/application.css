@@ -10,7 +10,8 @@ body {
 /* Positioning */
 #shell-header,
 #shell-navigation,
-#shell-content {
+#shell-content,
+#shell-login {
   position: fixed;
 }
 #shell-navigation {
@@ -23,7 +24,8 @@ body {
   right: 0;
   z-index: 9999;
 }
-#shell-content {
+#shell-content,
+#shell-login {
   top: 60px;
   bottom: 0;
   left: 0;
