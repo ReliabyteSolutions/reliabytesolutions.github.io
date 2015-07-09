@@ -29,13 +29,13 @@
     runBlock.$inject = [
         '$rootScope',
         '$state',
-        '$stateParams'
+        'adalAuthenticationService'
     ];
 
-    function runBlock($rootScope, $state) {
+    function runBlock($rootScope, $state, adalAuthenticationService) {
         $rootScope.$on('$stateChangeStart', function() {
             if ($state.get('shell').loginRequired === true) {
-                console.log($rootScope);
+                adalAuthenticationService.login();
             }
         });
     }
