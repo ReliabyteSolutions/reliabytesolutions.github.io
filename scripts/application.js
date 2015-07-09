@@ -67,7 +67,6 @@
 
         $stateProvider.state({
             name: 'shell',
-            requireADLogin: true,
             url: '',
             abstract: true,
             templateUrl: 'shell/shell.html',
@@ -84,6 +83,7 @@
 
             $stateProvider.state('shell.home', {
                 url: '/home',
+                requireADLogin: true,
                 templateUrl: 'pages/default/default.html'
             });
 
