@@ -67,6 +67,7 @@
 
         $stateProvider.state({
             name: 'shell',
+            requireADLogin: true,
             url: '',
             abstract: true,
             templateUrl: 'shell/shell.html',
