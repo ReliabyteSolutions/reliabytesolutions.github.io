@@ -1,10 +1,13 @@
 (function() {
     'use strict';
 
-    angular.module('app',[
+    angular.module('workr',[
         'templates',
-        'app.shell',
-        'app.default'
+        'shell',
+        'wkr.home',
+        'wkr.tasks',
+        'wkr.projects',
+        'wkr.timesheet'
     ]).run(runBlock);
 
     runBlock.$inject = [
@@ -21,84 +24,100 @@
 (function() {
     'use strict';
 
-    angular.module('app.shell',[
-        'AdalAngular',
+    angular.module('shell',[
         'ui.router'
-    ]).run(runBlock);
-
-    runBlock.$inject = [
-        '$rootScope',
-        '$state',
-        'adalAuthenticationService'
-    ];
-
-    function runBlock($rootScope, $state, adalAuthenticationService) {
-        $rootScope.$on('$stateChangeStart', function() {
-            if ($state.get('shell').loginRequired === true) {
-                adalAuthenticationService.login();
-            }
-        });
-    }
+    ])
 })();
 (function() {
     'use strict';
 
-    angular.module('app.default',[
+    angular.module('wkr.home',[
+        'ui.router',
         'templates',
-        'ui.router'
+        'shell'
     ]);
 })();
+(function() {
+    'use strict';
 
+    angular.module('wkr.projects',[
+        'ui.router',
+        'templates',
+        'shell'
+    ]);
+})();
+(function() {
+    'use strict';
+
+    angular.module('wkr.tasks',[
+        'ui.router',
+        'templates',
+        'shell'
+    ]);
+})();
+(function() {
+    'use strict';
+
+    angular.module('wkr.timesheet',[
+        'ui.router',
+        'templates',
+        'shell'
+    ]);
+})();
 (function () {
     'use strict';
 
-    angular.module('app.shell')
+    angular.module('shell')
         .config(Config);
 
     Config.$inject = [
         '$urlRouterProvider',
         '$locationProvider',
-        '$stateProvider',
-        '$httpProvider',
-        'adalAuthenticationServiceProvider'
+        '$stateProvider'
     ];
 
     function Config(
         $urlRouterProvider,
         $locationProvider,
-        $stateProvider,
-        $httpProvider,
-        adalAuthenticationServiceProvider
+        $stateProvider
     ) {
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(false);
         $locationProvider.hashPrefix('!');
         $urlRouterProvider.otherwise('/home');
 
-        adalAuthenticationServiceProvider.init({
-            tenant: 'peoriaholyfamily.com',
-            clientId: '9b70d71a-c2bc-45e4-8f00-ded27a52aa1f'
-        }, $httpProvider );
-
-        $stateProvider.state({
-            name: 'shell',
+        $stateProvider.state('shell', {
             url: '',
             abstract: true,
-            templateUrl: 'shell/shell.html',
-            controller: 'ShellCtrl',
-            controllerAs: 'shell',
-            loginRequired: true
+            views: {
+                'header@': {
+                    templateUrl: 'shell/partials/header.html',
+                    controller: 'HeaderCtrl',
+                    controllerAs: 'header'
+                },
+                'navigation@': {
+                    templateUrl: 'shell/partials/navigation.html',
+                    controller: 'NavigationCtrl',
+                    controllerAs: 'navigation'
+                },
+                'page@': {
+                    templateUrl: 'shell/partials/page.html',
+                    controller: 'PageCtrl',
+                    controllerAs: 'page'
+                }
+            }
         })
     }
 })();
 (function() {
     'use strict';
 
-    angular.module('app.default')
-        .config(['$stateProvider', function($stateProvider) {
-
+    angular.module('wkr.home')
+        .config(['$stateProvider', 'navigationSvcProvider', function($stateProvider, navigationSvcProvider) {
+            navigationSvcProvider.addItem({title:'Home', sref:'shell.home', icon:'home'});
+            
             $stateProvider.state('shell.home', {
                 url: '/home',
-                templateUrl: 'pages/default/default.html'
+                templateUrl: 'pages/home/home.html'
             });
 
         }])
@@ -110,43 +129,101 @@
 (function() {
     'use strict';
 
-    angular.module('app.shell')
-        .controller('ShellCtrl', Shell);
+    angular.module('wkr.projects')
+        .config(['$stateProvider', 'navigationSvcProvider', function($stateProvider, navigationSvcProvider) {
+            navigationSvcProvider.addItem({title:'Projects', sref:'shell.projects', icon:'cubes'});
+            
+            $stateProvider.state('shell.projects', {
+                url: '/projects',
+                templateUrl: 'pages/projects/projects.html'
+            });
 
-    Shell.$inject = ['adalAuthenticationService'];
+        }])
+})();
 
-    function Shell(adalAuthenticationService) {
+
+
+
+(function() {
+    'use strict';
+
+    angular.module('wkr.tasks')
+        .config(['$stateProvider', 'navigationSvcProvider', function($stateProvider, navigationSvcProvider) {
+            navigationSvcProvider.addItem({title:'Tasks', sref:'shell.tasks', icon:'tasks'});
+            
+            $stateProvider.state('shell.tasks', {
+                url: '/tasks',
+                templateUrl: 'pages/tasks/tasks.html'
+            });
+
+        }])
+})();
+
+
+
+
+(function() {
+    'use strict';
+
+    angular.module('wkr.timesheet')
+        .config(['$stateProvider', 'navigationSvcProvider', function($stateProvider, navigationSvcProvider) {
+            navigationSvcProvider.addItem({title:'Timesheets', sref:'shell.timesheet', icon:'ticket'});
+            
+            $stateProvider.state('shell.timesheet', {
+                url: '/timesheet',
+                templateUrl: 'pages/timesheet/timesheet.html'
+            });
+        }])
+})();
+
+
+
+
+(function() {
+    'use strict';
+
+    angular.module('shell')
+        .controller('HeaderCtrl', Header);
+
+    Header.$inject = ['navigationSvc', 'headerSvc'];
+    function Header(navigationSvc, headerSvc) {
         this.userPicture = "/assets/user.jpg";
 
-        this.login = function() {
-            adalAuthenticationService.login();
-        };
+        this.navigationStatus = navigationSvc.status;
+        this.navigationToggle = navigationSvc.toggle;
 
-        this.header = 'shell/shell.header.html';
-
-        this.panelStatus = 'closed';
-        var panelTypes = {
-            'notification': 'shell/shell.panel.notification.html',
-            'profile': 'shell/shell.panel.profile.html'
-        };
-        this.togglePanel = function(type) {
-            var status = this.panelStatus;
-            if (status === 'opened') {
-                status = this.panelStatus = 'closed';
-            }
-            else if (status === 'closed') {
-                this.panel = panelTypes[type];
-                status = this.panelStatus = 'opened';
-            }
-            else status = this.panelStatus = 'closed';
-        };
-
+        this.menuStatus = headerSvc.status;
+        this.menuToggle = headerSvc.toggle;
+        this.menuClose = headerSvc.close;
     }
 })();
 (function() {
     'use strict';
 
-    angular.module('app.shell')
+    angular.module('shell')
+        .controller('NavigationCtrl', Navigation);
+
+    Navigation.$inject = ['navigationSvc'];
+    function Navigation(navigationSvc) {
+        this.menu = navigationSvc.menu();
+        this.status = navigationSvc.status;
+    }
+})();
+(function() {
+    'use strict';
+
+    angular.module('shell')
+        .controller('PageCtrl', Page);
+
+    Page.$inject = ['navigationSvc'];
+    function Page(navigationSvc) {
+        this.navigationStatus = navigationSvc.status;
+    }
+})();
+(function() {
+    'use strict';
+
+    angular.module('shell')
         .controller('NotificationPanelCtrl', NotificationPanel);
 
     function NotificationPanel() {
@@ -156,7 +233,7 @@
 (function() {
     'use strict';
 
-    angular.module('app.shell')
+    angular.module('shell')
         .controller('ProfilePanelCtrl', ProfilePanel);
 
     function ProfilePanel() {
@@ -168,6 +245,66 @@
         this.signOut = function() {console.log('sign-out')};
     }
 })();
-/**
- * Created by jbani on 7/7/2015.
- */
+
+
+
+
+(function() {
+    'use strict';
+
+    angular.module('shell')
+        .provider('headerSvc', HeaderProvider);
+
+    function HeaderProvider() {
+        var _stat = 'header-menu-closed';
+
+        this.$get = function () {
+            return {
+                close: function() {
+                    if (_stat === 'header-menu-opened') return _stat = 'header-menu-closed';
+                    else if (_stat === 'header-menu-closed') return _stat = 'header-menu-closed';
+                    else return _stat = 'header-menu-closed';
+                },
+                toggle: function() {
+                    if (_stat === 'header-menu-opened') return _stat = 'header-menu-closed';
+                    else if (_stat === 'header-menu-closed') return _stat = 'header-menu-opened';
+                    else return _stat = 'header-menu-closed';
+                },
+                status: function() {
+                    return _stat;
+                }
+            };
+        };
+    }
+})();
+(function() {
+    'use strict';
+
+    angular.module('shell')
+        .provider('navigationSvc', NavigationProvider);
+
+    function NavigationProvider() {
+        var _menu = [],
+            _stat = 'shell-navigation-closed';
+
+        this.addItem = function(item) {
+            _menu.push(item)
+        };
+
+        this.$get = function () {
+            return {
+                menu: function() {
+                    return _menu;
+                },
+                toggle: function() {
+                    if (_stat === 'shell-navigation-opened') return _stat = 'shell-navigation-closed';
+                    else if (_stat === 'shell-navigation-closed') return _stat = 'shell-navigation-opened';
+                    else return _stat = 'shell-navigation-closed';
+                },
+                status: function() {
+                    return _stat;
+                }
+            };
+        };
+    }
+})();

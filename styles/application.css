@@ -1,163 +1,268 @@
+/**
+ * Shell-UX Loader
+ *
+ * @copyright (c) 2015 Reliabyte Solutions
+ * @license Internal-Use
+ */
+/**
+ * Shell-UX Theme
+ *
+ * @copyright (c) 2015 Reliabyte Solutions
+ * @license Internal-Use
+ */
+/**
+ * Shell-UX Variables
+ *
+ * @copyright (c) 2015 Reliabyte Solutions
+ * @license Internal-Use
+ */
+/* Shell global */
+/* Shell header */
+/* Shell navigation */
+/* Media queries breakpoints */
+/**
+ * Shell-UX Main Styles
+ *
+ * @copyright (c) 2015 Reliabyte Solutions
+ * @license Internal-Use
+ */
 /*
-***
-*** Global
-***
-*/
-body {
-  font-size: 14px;
-  line-height: 1.6;
-}
-/* Positioning */
-#shell-header,
-#shell-navigation,
-#shell-content,
-#shell-login {
-  position: fixed;
-}
-#shell-navigation {
-  display: none;
-}
+ * Shell Positioning
+ */
 #shell-header {
+  position: fixed;
   height: 60px;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9999;
+  background-color: #4a3795;
 }
-#shell-content,
-#shell-login {
+@media (min-width: 992px) {
+  #shell-header.shell-navigation-opened #shell-header-navigation-toggle {
+    width: 220px;
+  }
+}
+#shell-navigation {
+  position: fixed;
+  top: -100%;
+  left: 0;
+  right: 0;
+  -webkit-transition: 0.15s ease-in-out;
+  -o-transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
+}
+#shell-navigation.shell-navigation-opened {
+  top: 60px;
+}
+@media (min-width: 992px) {
+  #shell-navigation.shell-navigation-opened {
+    width: 220px;
+  }
+}
+@media (min-width: 992px) {
+  #shell-navigation {
+    width: 60px;
+    top: 60px;
+    bottom: 0;
+    right: auto;
+  }
+}
+#shell-content {
+  position: fixed;
   top: 60px;
   bottom: 0;
   left: 0;
   right: 0;
   overflow-y: auto;
   overflow-x: hidden;
+  -webkit-transition: 0.15s ease-in-out;
+  -o-transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
+}
+@media (min-width: 992px) {
+  #shell-content.shell-navigation-opened {
+    left: 220px;
+  }
+}
+@media (min-width: 992px) {
+  #shell-content {
+    left: 60px;
+  }
 }
 /*
-***
-*** Branding
-***
-*/
-#shell-header {
-  background-color: #4a3795;
+ * Shell Header Menu Toggle
+ */
+#shell-header-menu-toggle {
+  height: 100%;
+  padding: 0 15px;
+  background-color: transparent;
+  border: none;
+  -webkit-transition: 0.15s ease-in-out;
+  -o-transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
 }
-#shell-sidebar {
-  background-color: #555;
+#shell-header-menu-toggle:hover,
+#shell-header-menu-toggle:focus {
+  background-color: #372970;
 }
-/* Branding */
-#shell-header .branding {
-  display: inline-block;
-  padding: 10px;
-  float: left;
+#shell-header-menu-toggle:focus {
+  outline: none;
 }
+/*
+ * Shell Header Menu
+ */
 #shell-header-menu {
   display: inline-block;
   float: right;
   height: 100%;
+  color: #ffffff;
 }
-#shell-header-menu > .item {
-  display: inline-block;
-  color: #FFF;
-  height: 100%;
-  padding: 0 10px;
+#shell-header-menu i {
+  -webkit-transform: translate(0, 25%);
+  -ms-transform: translate(0, 25%);
+  -o-transform: translate(0, 25%);
+  transform: translate(0, 25%);
 }
-#shell-header-menu > .item:hover {
-  background-color: #372970;
-}
-#shell-header-menu > .item i {
-  transform: translateY(50%);
-}
-#shell-header-menu > .item img {
+#shell-header-menu img.photo {
   width: 40px;
   height: 40px;
-  transform: translateY(25%);
-}
-#shell-header-menu > .item img.user-photo {
   border-radius: 40px;
 }
+#shell-header-menu span.name {
+  display: none;
+  padding: 6px;
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: lighter;
+  letter-spacing: 0.125em;
+  vertical-align: middle;
+}
+@media (min-width: 768px) {
+  #shell-header-menu span.name {
+    display: inline;
+  }
+}
+@media (min-width: 992px) {
+  #shell-header-menu span.name {
+    display: inline;
+  }
+}
+@media (min-width: 1200px) {
+  #shell-header-menu span.name {
+    display: inline;
+  }
+}
+#shell-header-menu ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  float: left;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-shadow: 3px 3px 10px black;
+}
+#shell-header-menu ul.header-menu-opened {
+  display: block;
+}
+#shell-header-menu ul li {
+  background-color: #282828;
+  padding: 13px 0;
+  -webkit-transition: 0.15s ease-in-out;
+  -o-transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
+}
+#shell-header-menu ul li a {
+  padding: 15px 30px;
+  color: #ffffff;
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.0625em;
+}
+#shell-header-menu ul li a:hover {
+  text-decoration: none;
+}
+#shell-header-menu ul li:hover {
+  background-color: #0e0e0e;
+}
 /*
-  ============PANEL
-*/
-#shell-panel {
-  position: fixed;
-  top: 60px;
+ * Shell Navigation Toggle
+ */
+#shell-header-navigation-toggle {
+  float: left;
+  width: 60px;
+  height: 60px;
+  padding: 15px 12px;
+  color: #ffffff;
+  -webkit-transition: 0.15s ease-in-out;
+  -o-transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
+}
+#shell-header-navigation-toggle:hover {
+  background-color: #372970;
+}
+/*
+ * Shell Navigation
+ */
+#shell-navigation {
+  background-color: #282828;
+}
+#shell-navigation #shell-navigation-menu ul {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+#shell-navigation #shell-navigation-menu ul li {
+  position: relative;
+  display: block;
+  height: 60px;
+  border-left: 3px solid transparent;
+  -webkit-transition: 0.15s ease-in-out;
+  -o-transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
+}
+#shell-navigation #shell-navigation-menu ul li a {
+  position: absolute;
+  top: 0;
   bottom: 0;
   right: 0;
-  width: 300px;
-  background: rgba(24, 24, 24, 0.9);
-  border-left: 1px solid #101010;
-  transition: 0.25s ease-in-out;
-  transform: translateX(100%);
-  z-index: 9998;
+  left: 0;
+  padding: 15px 10px;
+  color: #ffffff;
 }
-#shell-panel.closed {
-  transform: translateX(100%);
+#shell-navigation #shell-navigation-menu ul li a:focus {
+  outline: none!important;
 }
-#shell-panel.opened {
-  transform: none;
+#shell-navigation #shell-navigation-menu ul li a:hover {
+  color: #ffffff;
 }
-#shell-panel .title {
-  margin-left: 25px;
-  color: #d7d7d7;
-  text-align: center;
+#shell-navigation #shell-navigation-menu ul li span.title {
+  position: absolute;
+  top: 17px;
+  left: 60px;
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: lighter;
+  letter-spacing: 0.125em;
 }
-/*
-  ============NOTIFICATION PANEL
-*/
-#shell-panel .notification {
-  background: rgba(11, 11, 11, 0.7);
-  color: #bebebe;
-  padding: 10px;
-  margin-bottom: 5px;
+#shell-navigation #shell-navigation-menu ul li:hover {
+  background-color: #0e0e0e;
 }
-#shell-panel .notification .notification-desc {
-  display: inline-block;
-  width: 250px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  vertical-align: bottom;
+#shell-navigation #shell-navigation-menu ul li.active {
+  border-left-color: #ffffff;
 }
-#shell-panel .notification .notification-dismiss {
-  display: inline-block;
-  vertical-align: bottom;
-  float: right;
-  background: #373737;
-  border-radius: 12px;
-  padding: 0 5px;
+#shell-navigation #shell-navigation-menu ul li.active:after {
+  content: "\25B2";
+  position: absolute;
+  right: -3px;
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 60px;
 }
-#shell-panel .notification .notification-dismiss .close {
-  text-shadow: none;
-}
-#shell-panel .dismiss-all {
-  text-align: right;
-}
-#shell-panel .dismiss-all .btn-link {
-  color: #7e7e7e;
-}
-#shell-panel .dismiss-all .btn-link:hover,
-#shell-panel .dismiss-all .btn-link:focus {
-  color: #656565;
-}
-/*
-  ============PROFILE PANEL
-*/
-#shell-panel .profile-photo {
-  text-align: center;
-  margin: 25px 0;
-}
-#shell-panel .profile-photo img {
-  width: 150px;
-  height: 150px;
-  border-radius: 150px;
-}
-#shell-panel .profile-link {
-  text-align: center;
-}
-#shell-panel .profile-link .btn-link {
-  color: #7e7e7e;
-}
-#shell-panel .profile-link .btn-link:hover,
-#shell-panel .profile-link .btn-link:focus {
-  color: #656565;
+#shell-navigation.shell-navigation-closed ul li span.title {
+  display: none;
 }
