@@ -36,33 +36,39 @@
   left: 0;
   right: 0;
   background-color: #4a3795;
-}
-@media (min-width: 992px) {
-  #shell-header.shell-navigation-opened #shell-header-navigation-toggle {
-    width: 220px;
-  }
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 #shell-navigation {
+  display: none;
   position: fixed;
-  top: -100%;
+  top: 60px;
   left: 0;
   right: 0;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   -webkit-transition: 0.15s ease-in-out;
   -o-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
 }
-#shell-navigation.shell-navigation-opened {
-  top: 60px;
+#shell-navigation.navigation-opened {
+  display: block;
 }
 @media (min-width: 992px) {
-  #shell-navigation.shell-navigation-opened {
+  #shell-navigation.navigation-opened {
     width: 220px;
   }
 }
 @media (min-width: 992px) {
   #shell-navigation {
+    display: block;
     width: 60px;
-    top: 60px;
     bottom: 0;
     right: auto;
   }
@@ -80,7 +86,7 @@
   transition: 0.15s ease-in-out;
 }
 @media (min-width: 992px) {
-  #shell-content.shell-navigation-opened {
+  #shell-content.navigation-opened {
     left: 220px;
   }
 }
@@ -90,10 +96,16 @@
   }
 }
 /*
- * Shell Header Menu Toggle
+ * Shell Header Profile Menu
  */
-#shell-header-menu-toggle {
+#profile-menu {
+  display: inline-block;
+  float: right;
   height: 100%;
+  color: #ffffff;
+}
+#profile-menu #profile-menu-toggle {
+  height: 60px;
   padding: 0 15px;
   background-color: transparent;
   border: none;
@@ -101,34 +113,25 @@
   -o-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
 }
-#shell-header-menu-toggle:hover,
-#shell-header-menu-toggle:focus {
+#profile-menu #profile-menu-toggle:hover,
+#profile-menu #profile-menu-toggle:focus {
   background-color: #372970;
 }
-#shell-header-menu-toggle:focus {
+#profile-menu #profile-menu-toggle:focus {
   outline: none;
 }
-/*
- * Shell Header Menu
- */
-#shell-header-menu {
-  display: inline-block;
-  float: right;
-  height: 100%;
-  color: #ffffff;
-}
-#shell-header-menu i {
+#profile-menu #profile-menu-toggle i {
   -webkit-transform: translate(0, 25%);
   -ms-transform: translate(0, 25%);
   -o-transform: translate(0, 25%);
   transform: translate(0, 25%);
 }
-#shell-header-menu img.photo {
+#profile-menu #profile-menu-toggle img.photo {
   width: 40px;
   height: 40px;
   border-radius: 40px;
 }
-#shell-header-menu span.name {
+#profile-menu #profile-menu-toggle span.name {
   display: none;
   padding: 6px;
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
@@ -138,68 +141,82 @@
   vertical-align: middle;
 }
 @media (min-width: 768px) {
-  #shell-header-menu span.name {
+  #profile-menu #profile-menu-toggle span.name {
     display: inline;
   }
 }
-@media (min-width: 992px) {
-  #shell-header-menu span.name {
-    display: inline;
-  }
+#profile-menu > ul > li:first-child {
+  text-align: right;
 }
-@media (min-width: 1200px) {
-  #shell-header-menu span.name {
-    display: inline;
-  }
-}
-#shell-header-menu ul {
-  display: none;
-  position: absolute;
-  top: 100%;
-  float: left;
-  margin: 0;
-  padding: 0;
+#profile-menu ul {
+  padding-left: 0;
+  margin-bottom: 0;
   list-style: none;
-  box-shadow: 3px 3px 10px black;
 }
-#shell-header-menu ul.header-menu-opened {
+#profile-menu ul li > ul {
+  display: none;
+}
+#profile-menu ul li > ul.profile-menu-opened {
   display: block;
 }
-#shell-header-menu ul li {
+#profile-menu ul li > ul li {
   background-color: #282828;
-  padding: 13px 0;
+}
+#profile-menu ul li > ul li a {
+  display: block;
+  padding: 15px 25px;
+  width: 100%;
+  color: #ffffff;
+  font-size: 16px;
+  letter-spacing: 0.0625em;
   -webkit-transition: 0.15s ease-in-out;
   -o-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
 }
-#shell-header-menu ul li a {
-  padding: 15px 30px;
-  color: #ffffff;
-  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  letter-spacing: 0.0625em;
-}
-#shell-header-menu ul li a:hover {
+#profile-menu ul li > ul li a:hover,
+#profile-menu ul li > ul li a:focus {
+  background-color: #0e0e0e;
   text-decoration: none;
 }
-#shell-header-menu ul li:hover {
-  background-color: #0e0e0e;
+#profile-menu ul li > ul li a:focus {
+  outline: none!important;
 }
 /*
  * Shell Navigation Toggle
  */
-#shell-header-navigation-toggle {
+#navigation-toggle {
   float: left;
   width: 60px;
   height: 60px;
-  padding: 15px 12px;
-  color: #ffffff;
   -webkit-transition: 0.15s ease-in-out;
   -o-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
 }
-#shell-header-navigation-toggle:hover {
+@media (min-width: 992px) {
+  #navigation-toggle.navigation-opened {
+    width: 220px;
+  }
+}
+#navigation-toggle button {
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  -webkit-transition: 0.15s ease-in-out;
+  -o-transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
+}
+#navigation-toggle button i {
+  padding-left: 12px;
+}
+#navigation-toggle button:hover,
+#navigation-toggle button:focus {
   background-color: #372970;
+}
+#navigation-toggle button:focus {
+  outline: none;
 }
 /*
  * Shell Navigation
@@ -216,7 +233,6 @@
   position: relative;
   display: block;
   height: 60px;
-  border-left: 3px solid transparent;
   -webkit-transition: 0.15s ease-in-out;
   -o-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
@@ -228,12 +244,15 @@
   right: 0;
   left: 0;
   padding: 15px 10px;
+  border-left: 3px solid transparent;
   color: #ffffff;
 }
 #shell-navigation #shell-navigation-menu ul li a:focus {
+  background-color: #0e0e0e;
   outline: none!important;
 }
 #shell-navigation #shell-navigation-menu ul li a:hover {
+  background-color: #0e0e0e;
   color: #ffffff;
 }
 #shell-navigation #shell-navigation-menu ul li span.title {
@@ -245,10 +264,7 @@
   font-weight: lighter;
   letter-spacing: 0.125em;
 }
-#shell-navigation #shell-navigation-menu ul li:hover {
-  background-color: #0e0e0e;
-}
-#shell-navigation #shell-navigation-menu ul li.active {
+#shell-navigation #shell-navigation-menu ul li.active a {
   border-left-color: #ffffff;
 }
 #shell-navigation #shell-navigation-menu ul li.active:after {
@@ -263,6 +279,6 @@
   font-size: 16px;
   line-height: 60px;
 }
-#shell-navigation.shell-navigation-closed ul li span.title {
+#shell-navigation.navigation-closed ul li span.title {
   display: none;
 }

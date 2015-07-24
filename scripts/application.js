@@ -25,6 +25,7 @@
     'use strict';
 
     angular.module('shell',[
+        'ngTouch',
         'ui.router'
     ])
 })();
@@ -207,6 +208,9 @@
     function Navigation(navigationSvc) {
         this.menu = navigationSvc.menu();
         this.status = navigationSvc.status;
+
+        this.open = navigationSvc.open;
+        this.close = navigationSvc.close;
     }
 })();
 (function() {
@@ -215,9 +219,14 @@
     angular.module('shell')
         .controller('PageCtrl', Page);
 
-    Page.$inject = ['navigationSvc'];
-    function Page(navigationSvc) {
+    Page.$inject = ['navigationSvc', 'headerSvc'];
+    function Page(navigationSvc, headerSvc) {
         this.navigationStatus = navigationSvc.status;
+
+        this.closeAll = function() {
+            navigationSvc.close();
+            headerSvc.close();
+        }
     }
 })();
 
@@ -231,19 +240,20 @@
         .provider('headerSvc', HeaderProvider);
 
     function HeaderProvider() {
-        var _stat = 'header-menu-closed';
+        var _stat = 'profile-menu-closed';
 
         this.$get = function () {
             return {
+                open: function() {
+                    if (_stat === 'profile-menu-closed') return _stat = 'profile-menu-opened';
+                },
                 close: function() {
-                    if (_stat === 'header-menu-opened') return _stat = 'header-menu-closed';
-                    else if (_stat === 'header-menu-closed') return _stat = 'header-menu-closed';
-                    else return _stat = 'header-menu-closed';
+                    if (_stat === 'profile-menu-opened') return _stat = 'profile-menu-closed';
                 },
                 toggle: function() {
-                    if (_stat === 'header-menu-opened') return _stat = 'header-menu-closed';
-                    else if (_stat === 'header-menu-closed') return _stat = 'header-menu-opened';
-                    else return _stat = 'header-menu-closed';
+                    if (_stat === 'profile-menu-opened') return _stat = 'profile-menu-closed';
+                    else if (_stat === 'profile-menu-closed') return _stat = 'profile-menu-opened';
+                    else return _stat = 'profile-menu-closed';
                 },
                 status: function() {
                     return _stat;
@@ -260,7 +270,7 @@
 
     function NavigationProvider() {
         var _menu = [],
-            _stat = 'shell-navigation-closed';
+            _stat = 'navigation-closed';
 
         this.addItem = function(item) {
             _menu.push(item)
@@ -271,10 +281,16 @@
                 menu: function() {
                     return _menu;
                 },
+                open: function() {
+                    if (_stat === 'navigation-closed') return _stat = 'navigation-opened';
+                },
+                close: function() {
+                    if (_stat === 'navigation-opened') return _stat = 'navigation-closed';
+                },
                 toggle: function() {
-                    if (_stat === 'shell-navigation-opened') return _stat = 'shell-navigation-closed';
-                    else if (_stat === 'shell-navigation-closed') return _stat = 'shell-navigation-opened';
-                    else return _stat = 'shell-navigation-closed';
+                    if (_stat === 'navigation-opened') return _stat = 'navigation-closed';
+                    else if (_stat === 'navigation-closed') return _stat = 'navigation-opened';
+                    else return _stat = 'navigation-closed';
                 },
                 status: function() {
                     return _stat;

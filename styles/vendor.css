@@ -3401,7 +3401,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-top-left-radius: 0;
 }
 .breadcrumb {
-  padding: 8px 15px;
+  padding: 10px 20px;
   margin-bottom: 20px;
   list-style: none;
   background-color: #e3e3e3;
